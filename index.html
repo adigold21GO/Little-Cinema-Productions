@@ -146,12 +146,13 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
 .close:hover{border-color:var(--ink)}
 .close svg{width:11px;height:11px}
 .screen{position:relative;width:100%;max-width:min(1600px,calc((100svh - 130px) * 16 / 9));margin:12px auto 0;aspect-ratio:16/9;background:#0b0a09;overflow:hidden;border-radius:6px}
-.screen img{width:100%;height:100%;object-fit:cover;opacity:.88;transform:scale(var(--z,1))}
+.screen img{width:100%;height:100%;object-fit:cover;transform:scale(var(--z,1))}
 .screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .play{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:14px;color:var(--paper);font-size:15px}
 .play-ring{width:clamp(64px,8vw,96px);height:clamp(64px,8vw,96px);border-radius:50%;background:rgba(251,248,243,.92);display:grid;place-items:center;transition:transform .4s var(--ease)}
 .play:hover .play-ring{transform:scale(1.07)}
 .play-ring svg{width:28%;fill:var(--ink);margin-left:6%}
+.screen-status{max-width:min(1600px,calc((100svh - 130px) * 16 / 9));margin:12px auto 0;font-size:15px;color:var(--dim)}
 .screen-note{position:absolute;left:0;right:0;bottom:0;padding:20px 24px;background:linear-gradient(0deg,rgba(20,18,16,.7),transparent);color:var(--paper);font-size:15px}
 
 .film-body{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(32px,6vw,90px);padding-block:clamp(36px,5vw,64px)}
@@ -310,6 +311,7 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
   <div class="wrap">
     <div class="inner">
       <div class="screen" id="screen"></div>
+      <p class="screen-status" id="screenStatus" hidden></p>
       <div class="film-body">
         <div>
           <p class="small film-type" id="filmType"></p>
@@ -630,7 +632,7 @@ let current = -1, lastFocus = null;
 function playerMarkup(f){
   const bg = `<img src="${img(f.hero,2500)}" srcset="${srcset(f.hero)}" sizes="100vw" alt="">`;
   if (ytId(f.video)) return bg + `<button class="play" type="button" id="playBtn" aria-label="Play ${esc(f.title)}"><span class="play-ring"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></span>Play</button>`;
-  return bg + `<div class="screen-note">${esc(f.note || "Not yet available online")}</div>`;
+  return bg;
 }
 function startVideo(f){
   const id = ytId(f.video); if (!id) return;
@@ -688,6 +690,9 @@ function openFilm(slug, autoplay){
 
   $("#filmNextTitle").textContent = FILMS[(i+1) % FILMS.length].title;
   scr.innerHTML = playerMarkup(f); watchTrims(scr);
+  /* availability note sits under the picture so it never covers the artwork */
+  const st = $("#screenStatus"); st.hidden = !!ytId(f.video);
+  st.textContent = ytId(f.video) ? "" : (f.note || "Not yet available online");
   const pb = $("#playBtn"); if (pb) pb.addEventListener("click", () => startVideo(f));
   film.scrollTop = 0;
   film.classList.add("open"); film.setAttribute("aria-hidden","false");
