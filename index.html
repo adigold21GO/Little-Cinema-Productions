@@ -91,14 +91,36 @@ section{scroll-margin-top:76px}
 
 /* about */
 .about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,6vw,90px);align-items:center}
-.about-img{aspect-ratio:4/5;overflow:hidden;border-radius:4px;background:var(--surface)}
+.about-img{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:4px;background:var(--surface)}
 .about-img img{width:100%;height:100%;object-fit:cover}
 .about-text h2{margin-bottom:20px}
 .about-text p{max-width:58ch;margin:0 0 16px;font-size:17px}
 
 /* contact */
-.contact-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,6vw,90px);align-items:center}
-.contact-body h1{margin-bottom:28px}
+.contact-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,6vw,90px);align-items:start}
+.contact-grid .about-img{position:sticky;top:110px}
+.contact-body h1{margin-bottom:16px}
+.contact-intro{max-width:52ch;margin:0 0 32px;font-size:17px;color:var(--dim)}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 24px;margin-bottom:clamp(40px,5vw,56px)}
+.field{display:grid;gap:8px;min-width:0}
+.field.full{grid-column:1 / -1}
+.field label{font-size:14px;color:var(--dim)}
+.field input,.field select,.field textarea{width:100%;font:400 17px/1.5 var(--sans);color:var(--ink);background:rgba(251,248,243,.55);border:1px solid var(--line);border-radius:6px;padding:12px 14px;transition:border-color .25s,background .25s;-webkit-appearance:none;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' stroke='%231c1a18' stroke-width='1.3' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:14px;padding-right:40px}
+.field textarea{min-height:160px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink);background:var(--paper)}
+.field input:user-invalid,.field textarea:user-invalid{border-color:#a3472f}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:#3a3631}
+.btn-ink[disabled]{opacity:.55;cursor:default}
+.form-status{font-size:15px;color:var(--dim);margin:0}
+.form-status.err{color:#a3472f}
+.form-status a{color:inherit}
+.form-done{grid-column:1 / -1;padding:28px 24px;border:1px solid var(--line);border-radius:6px;background:rgba(251,248,243,.6)}
+.form-done b{display:block;font:400 26px/1.2 var(--serif);margin-bottom:6px}
+.form-done p{margin:0;color:var(--dim)}
 .contact-list{display:grid;border-top:1px solid var(--line)}
 .contact-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 20px;padding:22px 4px;border-bottom:1px solid var(--line);text-decoration:none;transition:background .3s,padding .35s var(--ease)}
 .contact-row:hover{background:rgba(251,248,243,.55);padding-left:14px;padding-right:14px}
@@ -156,7 +178,7 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
 .gallery-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:20px}
 .film-h2{font:400 clamp(26px,3vw,36px)/1 var(--serif);margin:0}
 .gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.tile{display:block;width:100%;aspect-ratio:3/2;overflow:hidden;border-radius:4px;background:var(--surface)}
+.tile{position:relative;display:block;width:100%;aspect-ratio:3/2;overflow:hidden;border-radius:4px;background:var(--surface)}
 .tile img{width:100%;height:100%;object-fit:cover;transform:scale(var(--z,1));transition:transform 1s var(--ease)}
 .tile:hover img,.tile:focus-visible img{transform:scale(calc(var(--z,1) * 1.04))}
 .next{display:flex;justify-content:space-between;align-items:baseline;gap:16px;width:100%;text-align:left;padding-block:36px calc(36px + env(safe-area-inset-bottom, 0px));margin-top:clamp(36px,5vw,64px);border-top:1px solid var(--line)}
@@ -179,6 +201,7 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
   .films::-webkit-scrollbar{display:none}
   .card{scroll-snap-align:start}
   .about,.film-body,.contact-grid{grid-template-columns:minmax(0,1fr)}
+  .contact-grid .about-img{position:relative;top:auto}
   .about-img{aspect-ratio:4/3}
   .poster{max-width:220px}
   .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -188,6 +211,7 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
   .nav{gap:18px}
   .nav a{font-size:14px}
   .credits div{grid-template-columns:minmax(0,1fr);gap:2px}
+  .form{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;scroll-behavior:auto!important}
@@ -241,6 +265,26 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
       <div class="about-img"><img id="contactImg" alt="Still from Morpho" loading="lazy"></div>
       <div class="contact-body">
         <h1>Contact</h1>
+        <p class="contact-intro">For screenings, festivals, press, collaborations or anything else, send a note below. Noah reads every message and replies by email.</p>
+        <form class="form" id="contactForm" novalidate>
+          <div class="field"><label for="cfName">Name</label><input id="cfName" name="name" autocomplete="name" required maxlength="120"></div>
+          <div class="field"><label for="cfEmail">Email</label><input id="cfEmail" name="email" type="email" autocomplete="email" required maxlength="200"></div>
+          <div class="field full"><label for="cfReason">What it's about</label>
+            <select id="cfReason" name="reason">
+              <option>General inquiry</option>
+              <option>Screening or festival</option>
+              <option>Press or interview</option>
+              <option>Collaboration or hiring</option>
+              <option>Distribution or production</option>
+            </select>
+          </div>
+          <div class="field full"><label for="cfMsg">Message</label><textarea id="cfMsg" name="message" required maxlength="5000"></textarea></div>
+          <div class="hp" aria-hidden="true"><label for="cfHp">Leave this empty</label><input id="cfHp" name="_honey" tabindex="-1" autocomplete="off"></div>
+          <div class="form-foot">
+            <button class="btn btn-ink" type="submit" id="cfSend">Send message</button>
+            <p class="form-status" id="cfStatus" role="status" aria-live="polite"></p>
+          </div>
+        </form>
         <div class="contact-list" id="contactLinks"></div>
       </div>
     </div>
@@ -288,6 +332,10 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
         <div class="gallery-head"><h2 class="film-h2" id="hBts">Behind the scenes</h2><span class="small" id="nBts"></span></div>
         <div class="gallery" id="galBts"></div>
       </section>
+      <section class="gallery-sec" id="secExtras" aria-labelledby="hExtras">
+        <div class="gallery-head"><h2 class="film-h2" id="hExtras">Extras</h2><span class="small" id="nExtras"></span></div>
+        <div class="gallery" id="galExtras"></div>
+      </section>
       <button class="next" id="filmNext" type="button"><span class="small">Next</span><b id="filmNextTitle"></b></button>
     </div>
   </div>
@@ -312,20 +360,26 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
    IMAGE_BASE: photos load from Noah's current Squarespace storage. To host
    them yourself, put the files in a folder, point IMAGE_BASE at it
    (e.g. "images/"), keep the same sub-paths, and set RESIZE to false.
-   PHOTOS: each film has `stills` (frames from the film) and `bts` (behind the
-   scenes). Move a line between the two lists to change where a photo shows.
+   PHOTOS: each film has `stills` (frames from the film), `bts` (behind the
+   scenes) and `extras`. Move a line between the lists to change where a photo
+   shows; an empty list hides its section.
    ========================================================================== */
 const SITE = {
-  email: "",                                    // e.g. "hello@noahgoldfilms.com"; shown in Contact when filled
+  email: "noahgold100@gmail.com",               // contact form messages are delivered here; also shown on the Contact page
   youtube: "https://www.youtube.com/@NoahGoldFilms"
 };
 const IMAGE_BASE = "https://images.squarespace-cdn.com/content/v1/696945400b37863631acd1cd/";
 const RESIZE = true;
 const LOGO = "c244ae59-0fed-4fd5-8f07-3307406cd90b/Sailboat+under+a+crescent+moon.png";
-/* TRIM: images with a black strip left over from a screenshot. The value is the
-   share of the width to cut from that edge, applied wherever the image appears. */
+/* TRIM: images with black bars baked in (the Morpho stills are 4:3 frames inside
+   a 16:9 file). Each value is the share of the width or height to cut from that
+   edge; the rest of the picture is enlarged to fill the frame wherever it appears. */
+const MORPHO_BARS = {left: 0.126, right: 0.126};
 const TRIM = {
-  "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg": {right: 0.05}
+  "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg": MORPHO_BARS,
+  "6a1fd089-74a0-4cbe-9e4b-f4ad0d75e254/Morpho_Still8.jpg": MORPHO_BARS,
+  "dcf53389-edac-4355-8072-dc95cf7b9b7f/Morpho_Still7.jpg": MORPHO_BARS,
+  "899b6209-f45d-4669-ab1d-8447458c8bfb/Morhpo_Still3.jpg": MORPHO_BARS
 };
 const CONTACT_IMG = "dcf53389-edac-4355-8072-dc95cf7b9b7f/Morpho_Still7.jpg";
 const ABOUT_IMG = "26ac530c-bc16-42e3-8d98-63e97094a65d/Screenshot+2026-05-04+at+3.01.46%E2%80%AFPM.png";
@@ -336,7 +390,7 @@ const FILMS = [
     title: "Little Manly",
     type: "Short",
     kind: "Short film",
-    video: "https://www.youtube.com/watch?v=CxqEbgAeyHA",
+    video: "https://www.youtube.com/watch?v=q4gVeKhBG_c",
     logline: "Two spirited sisters dance, steal, and jump across Sydney’s shores.",
     synopsis: "Shashy, nine, and Al, seven, spend a golden afternoon running loose through Sydney’s streets, ferry wharves and beaches. Shashy dances in public squares, stages mock operas and takes every dare. Al follows a step behind, hoping some of that nerve will rub off. At Little Manly Jump, a rock ledge above the water, Shashy dives first and waits for her sister to follow.",
     poster: "66ceb88c-06cf-487d-a445-1aca536904cf/Little+Manly+Poster+High+Qual.png",
@@ -350,7 +404,7 @@ const FILMS = [
     ],
     laurels: [{status:"Nominee", fest:"Indie Short Festival 2025", img:"8ae2633d-33dd-4d6a-99e7-0f0b59f10492/Nominee+-+Indie+Short+Festival+-+2025.png"}],
     ornament: "20590ddc-743d-4b36-811b-4ed66c34ced4/black-double-leaf-scaled.png",
-    links: [["Instagram", "https://www.instagram.com/littlemanly.shortfilm/"]],
+    links: [],
     stills: [
       "adf2ab65-d358-40c7-b9d8-74f06782837d/Little+Manly+Still.jpg",
       "bb57eb1f-11d3-4a22-b655-f7fa8b6854a1/Colored+hand.jpg"
@@ -374,7 +428,7 @@ const FILMS = [
     logline: "A man recounts his memories as a boy, trapped in his oppressive father’s arboretum.",
     synopsis: "",
     poster: "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg",
-    posterPos: "14% 50%",                        // centres the woman on the tall cover card
+    posterPos: "15% 50%",                        // where the tall cover card sits within the picture (after the black bars are cut)
     hero: "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg",
     credits: [["A film by", "Noah Gold"]],
     laurels: [{status:"Official Selection", fest:"Beirut Shorts, Official Competition 2026", img:"4593cbd0-421a-4fc9-9960-146a3752e545/OFFICIALSELECTION-BeirutShorts-OfficialCompetition-2026.png"}],
@@ -382,7 +436,6 @@ const FILMS = [
     stills: [
       "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg",
       "6a1fd089-74a0-4cbe-9e4b-f4ad0d75e254/Morpho_Still8.jpg",
-      "46c78208-a337-45c8-9d8a-53823d74037f/Screenshot+2026-05-04+at+3.33.23%E2%80%AFPM.png",
       "dcf53389-edac-4355-8072-dc95cf7b9b7f/Morpho_Still7.jpg",
       "899b6209-f45d-4669-ab1d-8447458c8bfb/Morhpo_Still3.jpg"
     ],
@@ -392,6 +445,9 @@ const FILMS = [
       "5ee50602-5b47-4639-b852-5348c93bd12c/Screenshot+2026-05-04+at+3.00.31%E2%80%AFPM.png",
       "c0fd18ff-2482-4f9c-a275-788b2e150415/Screenshot+2026-05-04+at+3.01.58%E2%80%AFPM.png",
       "36199f80-161c-4f69-9d1c-c8593f81b627/Screenshot+2026-05-04+at+3.01.46%E2%80%AFPM.png"
+    ],
+    extras: [
+      "46c78208-a337-45c8-9d8a-53823d74037f/Screenshot+2026-05-04+at+3.33.23%E2%80%AFPM.png"
     ]
   },
   {
@@ -417,14 +473,34 @@ const FILMS = [
 const $ = s => document.querySelector(s);
 const img = (path, w) => IMAGE_BASE + path + (RESIZE && w ? "?format=" + w + "w" : "");
 const srcset = path => RESIZE ? `${img(path,750)} 750w, ${img(path,1500)} 1500w, ${img(path,2500)} 2500w` : "";
-/* zoom from the opposite edge so the trimmed strip falls outside the frame */
-function trimStyle(path){
-  const t = TRIM[path]; if (!t) return "";
-  const edge = t.right ? "right" : t.left ? "left" : t.bottom ? "bottom" : "top";
-  const z = 1 / (1 - t[edge]);
-  const origin = {right:"0% 50%", left:"100% 50%", bottom:"50% 0%", top:"50% 100%"}[edge];
-  return `--z:${z.toFixed(4)};transform-origin:${origin};`;
+/* Images listed in TRIM are laid out by hand: the black bars are cut off and the
+   rest of the picture is sized to fill its frame (like object-fit:cover would),
+   so the bars never show, whatever the frame's shape. `pos` is the focal point
+   ("x% y%") within the picture that remains. */
+const trimAttr = (path, pos) => TRIM[path] ? ` data-trim="${esc(path)}"${pos ? ` data-pos="${esc(pos)}"` : ""}` : "";
+function layoutTrim(im){
+  const t = TRIM[im.dataset.trim], box = im.parentElement;
+  if (!t || !box || !im.naturalWidth) return;
+  const w = box.clientWidth, h = box.clientHeight; if (!w || !h) return;
+  const W = im.naturalWidth, H = im.naturalHeight;
+  const l = t.left || 0, r = t.right || 0, tp = t.top || 0, b = t.bottom || 0;
+  const cw = W * (1 - l - r), ch = H * (1 - tp - b);
+  const s = Math.max(w / cw, h / ch);
+  const [fx, fy] = (im.dataset.pos || "50% 50%").split(/\s+/).map(v => parseFloat(v) / 100);
+  const x = (w - cw * s) * (isNaN(fx) ? .5 : fx) - l * W * s;
+  const y = (h - ch * s) * (isNaN(fy) ? .5 : fy) - tp * H * s;
+  Object.assign(im.style, {position:"absolute", left:x + "px", top:y + "px", width:W * s + "px", height:H * s + "px",
+    maxWidth:"none", objectFit:"fill", transformOrigin:`${w / 2 - x}px ${h / 2 - y}px`});
 }
+const trimObserver = "ResizeObserver" in window ? new ResizeObserver(list => list.forEach(e => e.target.querySelectorAll(":scope > img[data-trim]").forEach(layoutTrim))) : null;
+function watchTrims(root){
+  root.querySelectorAll("img[data-trim]").forEach(im => {
+    im.addEventListener("load", () => layoutTrim(im));
+    if (im.complete) layoutTrim(im);
+    if (trimObserver) trimObserver.observe(im.parentElement);
+  });
+}
+if (!trimObserver) addEventListener("resize", () => document.querySelectorAll("img[data-trim]").forEach(layoutTrim));
 function clipStyle(path){
   const t = TRIM[path]; if (!t) return "";
   const pct = k => ((t[k] || 0) * 100).toFixed(2) + "%";
@@ -479,25 +555,62 @@ placeGraphic(img(LOGO, 300), $("#brandMark"), logoFallback, "Little Cinema");
 $("#filmGrid").innerHTML = FILMS.map(f => `
   <button class="card" type="button" data-slug="${f.slug}" aria-label="${esc(f.title)}, ${esc(f.type)}">
     <div class="card-frame">
-      <img style="object-position:${esc(f.posterPos || "50% 50%")};${trimStyle(f.poster)}" src="${img(f.poster,1500)}" srcset="${srcset(f.poster)}" sizes="(max-width:900px) 72vw, 33vw" alt="" loading="lazy">
+      <img style="object-position:${esc(f.posterPos || "50% 50%")}"${trimAttr(f.poster, f.posterPos)} src="${img(f.poster,1500)}" srcset="${srcset(f.poster)}" sizes="(max-width:900px) 72vw, 33vw" alt="" loading="lazy">
       <div class="card-cap"><h3>${esc(f.title)}</h3><span>— ${esc(f.type)}</span></div>
     </div>
   </button>`).join("");
 document.querySelectorAll(".card").forEach(c => c.addEventListener("click", () => goFilm(c.dataset.slug)));
+watchTrims($("#filmGrid"));
 
 /* cover images may appear in Stills; they are kept out of Behind the scenes */
 const COVERS = new Set(FILMS.flatMap(f => [f.poster, f.hero]));
 
 /* about + contact */
-$("#aboutImg").src = img(ABOUT_IMG, 1500);
-$("#contactImg").src = img(CONTACT_IMG, 1500);
+[["#aboutImg", ABOUT_IMG], ["#contactImg", CONTACT_IMG]].forEach(([sel, path]) => {
+  const el = $(sel); if (TRIM[path]) el.dataset.trim = path;
+  el.src = img(path, 1500); watchTrims(el.parentElement);
+});
 const row = (href, label, detail, ext) => `<a class="contact-row" href="${esc(href)}"${ext ? ' target="_blank" rel="noopener"' : ""}><b>${esc(label)}</b><span>${esc(detail)}</span><i>${arrow}</i></a>`;
 let contact = "";
 if (SITE.email) contact += row("mailto:" + SITE.email, "Email", SITE.email, false);
 contact += row(SITE.youtube, "YouTube", "@NoahGoldFilms", true);
-contact += row("https://www.instagram.com/littlemanly.shortfilm/", "Instagram", "@littlemanly.shortfilm", true);
 $("#contactLinks").innerHTML = contact;
 $("#yr").textContent = new Date().getFullYear();
+
+/* Contact form. Messages go to SITE.email through FormSubmit (formsubmit.co),
+   which needs no account or server. The very first message sent from the live
+   site triggers a one-time "Activate Form" email to that address; after it is
+   clicked, every message arrives as a normal email with Reply-To set to the
+   sender, so replying goes straight back to them. */
+const form = $("#contactForm"), status = $("#cfStatus"), sendBtn = $("#cfSend");
+const mailLink = () => `<a href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a>`;
+function setStatus(html, err){ status.innerHTML = html; status.classList.toggle("err", !!err); }
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(form));
+  if (data._honey) return;                                   /* filled in by a bot */
+  const bad = [...form.querySelectorAll("[required]")].find(el => !el.checkValidity());
+  if (bad){ setStatus(bad.type === "email" ? "Please enter a valid email address." : "Please fill in your name, email and message.", true); bad.focus(); return; }
+  sendBtn.disabled = true; sendBtn.textContent = "Sending…"; setStatus("");
+  try{
+    const res = await fetch("https://formsubmit.co/ajax/" + encodeURIComponent(SITE.email), {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Accept": "application/json"},
+      body: JSON.stringify({
+        name: data.name.trim(), email: data.email.trim(), reason: data.reason, message: data.message.trim(),
+        _subject: `Website: ${data.reason} from ${data.name.trim()}`,
+        _replyto: data.email.trim(), _template: "table", _captcha: "false", _honey: ""
+      })
+    });
+    const out = await res.json().catch(() => ({}));
+    if (!res.ok || String(out.success) !== "true") throw new Error(out.message || res.status);
+    form.innerHTML = `<div class="form-done" tabindex="-1"><b>Thank you, ${esc(data.name.trim().split(/\s+/)[0])}.</b><p>Your message was sent. Noah will reply to ${esc(data.email.trim())}.</p></div>`;
+    form.querySelector(".form-done").focus();
+  }catch(err){
+    sendBtn.disabled = false; sendBtn.textContent = "Send message";
+    setStatus(`The message didn't go through. Please email ${mailLink()} directly.`, true);
+  }
+});
 
 /* header state + active nav */
 const headerEl = $("#top");
@@ -509,7 +622,7 @@ const navLinks = [...document.querySelectorAll(".nav a")];
 const film = $("#film"), scr = $("#screen");
 let current = -1, lastFocus = null;
 function playerMarkup(f){
-  const bg = `<img style="${trimStyle(f.hero)}" src="${img(f.hero,2500)}" srcset="${srcset(f.hero)}" sizes="100vw" alt="">`;
+  const bg = `<img${trimAttr(f.hero)} src="${img(f.hero,2500)}" srcset="${srcset(f.hero)}" sizes="100vw" alt="">`;
   if (ytId(f.video)) return bg + `<button class="play" type="button" id="playBtn" aria-label="Play ${esc(f.title)}"><span class="play-ring"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></span>Play</button>`;
   return bg + `<div class="screen-note">${esc(f.note || "Not yet available online")}</div>`;
 }
@@ -520,6 +633,7 @@ function startVideo(f){
   if (location.protocol === "file:"){
     scr.innerHTML = playerMarkup(f).replace(/<button class="play"[\s\S]*<\/button>/, "") +
       `<div class="screen-note">The video plays here once the site is online. <a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">Watch on YouTube</a></div>`;
+    watchTrims(scr);
     return;
   }
   const src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&iv_load_policy=3&origin=${encodeURIComponent(location.origin)}`;
@@ -529,8 +643,9 @@ function fillGallery(f, list, label, sec, grid, count, keepCovers){
   const photos = list.filter(s => keepCovers || !COVERS.has(s)).map(s => ({src:s, film:f.title + " · " + label}));
   sec.hidden = !photos.length;
   count.textContent = photos.length ? String(photos.length) : "";
-  grid.innerHTML = photos.map((p,k) => `<button class="tile" type="button" data-k="${k}" aria-label="${esc(label)} photo ${k+1}"><img style="${trimStyle(p.src)}" src="${img(p.src,1000)}" alt="${esc(f.title)}, ${esc(label.toLowerCase())} photo ${k+1}" loading="lazy"></button>`).join("");
+  grid.innerHTML = photos.map((p,k) => `<button class="tile" type="button" data-k="${k}" aria-label="${esc(label)} photo ${k+1}"><img${trimAttr(p.src)} src="${img(p.src,1000)}" alt="${esc(f.title)}, ${esc(label.toLowerCase())} photo ${k+1}" loading="lazy"></button>`).join("");
   grid.querySelectorAll(".tile").forEach(b => b.addEventListener("click", () => openViewer(photos, +b.dataset.k)));
+  watchTrims(grid);
 }
 function openFilm(slug, autoplay){
   const i = FILMS.findIndex(f => f.slug === slug); if (i < 0) return;
@@ -562,9 +677,10 @@ function openFilm(slug, autoplay){
 
   fillGallery(f, f.stills, "Still", $("#secStills"), $("#galStills"), $("#nStills"), true);
   fillGallery(f, f.bts || [], "Behind the scenes", $("#secBts"), $("#galBts"), $("#nBts"));
+  fillGallery(f, f.extras || [], "Extras", $("#secExtras"), $("#galExtras"), $("#nExtras"), true);
 
   $("#filmNextTitle").textContent = FILMS[(i+1) % FILMS.length].title;
-  scr.innerHTML = playerMarkup(f);
+  scr.innerHTML = playerMarkup(f); watchTrims(scr);
   const pb = $("#playBtn"); if (pb) pb.addEventListener("click", () => startVideo(f));
   film.scrollTop = 0;
   film.classList.add("open"); film.setAttribute("aria-hidden","false");
