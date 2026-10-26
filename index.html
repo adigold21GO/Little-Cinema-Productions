@@ -394,6 +394,7 @@ const FILMS = [
     logline: "Two spirited sisters dance, steal, and jump across Sydney’s shores.",
     synopsis: "Shashy, nine, and Al, seven, spend a golden afternoon running loose through Sydney’s streets, ferry wharves and beaches. Shashy dances in public squares, stages mock operas and takes every dare. Al follows a step behind, hoping some of that nerve will rub off. At Little Manly Jump, a rock ledge above the water, Shashy dives first and waits for her sister to follow.",
     poster: "66ceb88c-06cf-487d-a445-1aca536904cf/Little+Manly+Poster+High+Qual.png",
+    fullPoster: "images/little-manly-poster.webp",   // titled poster shown on the film page (the home card keeps the photo)
     hero: "adf2ab65-d358-40c7-b9d8-74f06782837d/Little+Manly+Still.jpg",
     credits: [
       ["Written & directed by", "Noah Gold"],
@@ -430,7 +431,13 @@ const FILMS = [
     poster: "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg",
     posterPos: "15% 50%",                        // where the tall cover card sits within the picture (after the black bars are cut)
     hero: "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg",
-    credits: [["A film by", "Noah Gold"]],
+    credits: [
+      ["Written & directed by", "Noah Gold"],
+      ["Produced by", "Noah Gold"],
+      ["Edited by", "Noah Gold"],
+      ["Cinematography", "Alex Rodriguez"],
+      ["Music", "Justin Duong"]
+    ],
     laurels: [{status:"Official Selection", fest:"Beirut Shorts, Official Competition 2026", img:"4593cbd0-421a-4fc9-9960-146a3752e545/OFFICIALSELECTION-BeirutShorts-OfficialCompetition-2026.png"}],
     links: [],
     stills: [
@@ -471,8 +478,10 @@ const FILMS = [
 
 /* ========================================================================== */
 const $ = s => document.querySelector(s);
-const img = (path, w) => IMAGE_BASE + path + (RESIZE && w ? "?format=" + w + "w" : "");
-const srcset = path => RESIZE ? `${img(path,750)} 750w, ${img(path,1500)} 1500w, ${img(path,2500)} 2500w` : "";
+/* paths starting with "images/" (files in this repo) or a full URL load as-is */
+const isOwn = path => /^(images\/|https?:)/.test(path);
+const img = (path, w) => isOwn(path) ? path : IMAGE_BASE + path + (RESIZE && w ? "?format=" + w + "w" : "");
+const srcset = path => RESIZE && !isOwn(path) ? `${img(path,750)} 750w, ${img(path,1500)} 1500w, ${img(path,2500)} 2500w` : "";
 /* Images listed in TRIM are laid out by hand: the black bars are cut off and the
    rest of the picture is sized to fill its frame (like object-fit:cover would),
    so the bars never show, whatever the frame's shape. `pos` is the focal point
@@ -657,7 +666,8 @@ function openFilm(slug, autoplay){
   $("#filmLogline").textContent = f.logline;
   $("#filmSyn").textContent = f.synopsis; $("#filmSyn").hidden = !f.synopsis;
   const fp = $("#filmPoster");
-  fp.hidden = f.poster === f.hero; if (!fp.hidden){ fp.src = img(f.poster, 1000); fp.alt = f.title + " poster"; }
+  const posterSrc = f.fullPoster || f.poster;
+  fp.hidden = posterSrc === f.hero; if (!fp.hidden){ fp.src = img(posterSrc, 1000); fp.alt = f.title + " poster"; }
   $("#filmCredits").innerHTML = f.credits.map(([k,v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("");
   const links = [...f.links];
   if (ytId(f.video)) links.push(["YouTube", "https://www.youtube.com/watch?v=" + ytId(f.video)]);
