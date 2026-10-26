@@ -97,37 +97,28 @@ section{scroll-margin-top:76px}
 .about-text p{max-width:58ch;margin:0 0 16px;font-size:17px}
 
 /* contact */
-.contact-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,6vw,90px);align-items:start}
-.contact-grid .about-img{position:sticky;top:110px}
-.contact-body h1{margin-bottom:16px}
-.contact-intro{max-width:52ch;margin:0 0 32px;font-size:17px;color:var(--dim)}
-.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 24px;margin-bottom:clamp(40px,5vw,56px)}
-.field{display:grid;gap:8px;min-width:0}
-.field.full{grid-column:1 / -1}
+.contact{max-width:540px;margin:0 auto}
+.contact h1{margin-bottom:12px}
+.contact-intro{margin:0 0 44px;font-size:17px;color:var(--dim)}
+.form{display:grid;gap:30px}
+.field{display:grid;gap:6px}
 .field label{font-size:14px;color:var(--dim)}
-.field input,.field select,.field textarea{width:100%;font:400 17px/1.5 var(--sans);color:var(--ink);background:rgba(251,248,243,.55);border:1px solid var(--line);border-radius:6px;padding:12px 14px;transition:border-color .25s,background .25s;-webkit-appearance:none;appearance:none}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' stroke='%231c1a18' stroke-width='1.3' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:14px;padding-right:40px}
-.field textarea{min-height:160px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink);background:var(--paper)}
-.field input:user-invalid,.field textarea:user-invalid{border-color:#a3472f}
+.field input,.field textarea{width:100%;font:400 17px/1.5 var(--sans);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:6px 0 10px;transition:border-color .25s;-webkit-appearance:none;appearance:none}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--ink)}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.form-foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:6px}
 .btn-ink{background:var(--ink);color:var(--paper)}
 .btn-ink:hover{background:#3a3631}
 .btn-ink[disabled]{opacity:.55;cursor:default}
 .form-status{font-size:15px;color:var(--dim);margin:0}
 .form-status.err{color:#a3472f}
 .form-status a{color:inherit}
-.form-done{grid-column:1 / -1;padding:28px 24px;border:1px solid var(--line);border-radius:6px;background:rgba(251,248,243,.6)}
 .form-done b{display:block;font:400 26px/1.2 var(--serif);margin-bottom:6px}
 .form-done p{margin:0;color:var(--dim)}
-.contact-list{display:grid;border-top:1px solid var(--line)}
-.contact-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 20px;padding:22px 4px;border-bottom:1px solid var(--line);text-decoration:none;transition:background .3s,padding .35s var(--ease)}
-.contact-row:hover{background:rgba(251,248,243,.55);padding-left:14px;padding-right:14px}
-.contact-row b{font:400 clamp(22px,2.2vw,28px)/1.15 var(--serif)}
-.contact-row span{grid-column:1;color:var(--dim);font-size:15px;overflow-wrap:anywhere}
-.contact-row i{grid-column:2;grid-row:1 / span 2;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-style:normal;transition:background .3s,color .3s,border-color .3s}
-.contact-row:hover i{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.form-done:focus{outline:none}
+.contact-alt{margin:56px 0 0;padding-top:22px;border-top:1px solid var(--line);font-size:15px;color:var(--dim)}
+.contact-alt a{color:var(--ink);text-underline-offset:3px;text-decoration-thickness:1px}
 /* about and contact pages */
 .page{padding-top:calc(clamp(110px,11vw,160px) + env(safe-area-inset-top, 0px))}
 .page .sec{padding-top:0}
@@ -201,8 +192,7 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
   .films{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(72vw,320px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
   .films::-webkit-scrollbar{display:none}
   .card{scroll-snap-align:start}
-  .about,.film-body,.contact-grid{grid-template-columns:minmax(0,1fr)}
-  .contact-grid .about-img{position:relative;top:auto}
+  .about,.film-body{grid-template-columns:minmax(0,1fr)}
   .about-img{aspect-ratio:4/3}
   .poster{max-width:220px}
   .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -212,7 +202,6 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
   .nav{gap:18px}
   .nav a{font-size:14px}
   .credits div{grid-template-columns:minmax(0,1fr);gap:2px}
-  .form{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;scroll-behavior:auto!important}
@@ -262,32 +251,20 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
 
 <main id="view-contact" class="page" hidden>
   <section class="sec wrap" aria-label="Contact">
-    <div class="inner contact-grid">
-      <div class="about-img"><img id="contactImg" alt="Still from Morpho" loading="lazy"></div>
-      <div class="contact-body">
-        <h1>Contact</h1>
-        <p class="contact-intro">For screenings, festivals, press, collaborations or anything else, send a note below. Noah reads every message and replies by email.</p>
-        <form class="form" id="contactForm" novalidate>
-          <div class="field"><label for="cfName">Name</label><input id="cfName" name="name" autocomplete="name" required maxlength="120"></div>
-          <div class="field"><label for="cfEmail">Email</label><input id="cfEmail" name="email" type="email" autocomplete="email" required maxlength="200"></div>
-          <div class="field full"><label for="cfReason">What it's about</label>
-            <select id="cfReason" name="reason">
-              <option>General inquiry</option>
-              <option>Screening or festival</option>
-              <option>Press or interview</option>
-              <option>Collaboration or hiring</option>
-              <option>Distribution or production</option>
-            </select>
-          </div>
-          <div class="field full"><label for="cfMsg">Message</label><textarea id="cfMsg" name="message" required maxlength="5000"></textarea></div>
-          <div class="hp" aria-hidden="true"><label for="cfHp">Leave this empty</label><input id="cfHp" name="_honey" tabindex="-1" autocomplete="off"></div>
-          <div class="form-foot">
-            <button class="btn btn-ink" type="submit" id="cfSend">Send message</button>
-            <p class="form-status" id="cfStatus" role="status" aria-live="polite"></p>
-          </div>
-        </form>
-        <div class="contact-list" id="contactLinks"></div>
-      </div>
+    <div class="inner contact">
+      <h1>Contact</h1>
+      <p class="contact-intro">Send Noah a note and he'll reply by email.</p>
+      <form class="form" id="contactForm" novalidate>
+        <div class="field"><label for="cfName">Name</label><input id="cfName" name="name" autocomplete="name" required maxlength="120"></div>
+        <div class="field"><label for="cfEmail">Email</label><input id="cfEmail" name="email" type="email" autocomplete="email" required maxlength="200"></div>
+        <div class="field"><label for="cfMsg">Message</label><textarea id="cfMsg" name="message" required maxlength="5000"></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="cfHp">Leave this empty</label><input id="cfHp" name="_honey" tabindex="-1" autocomplete="off"></div>
+        <div class="form-foot">
+          <button class="btn btn-ink" type="submit" id="cfSend">Send</button>
+          <p class="form-status" id="cfStatus" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <p class="contact-alt" id="contactLinks"></p>
     </div>
   </section>
 </main>
@@ -375,7 +352,7 @@ const RESIZE = true;
 const LOGO = "c244ae59-0fed-4fd5-8f07-3307406cd90b/Sailboat+under+a+crescent+moon.png";
 /* TRIM: images with black bars baked in (the Morpho stills are 4:3 frames inside
    a 16:9 file). Used only where a picture is cropped to fill a shape (the home
-   cover cards and the Contact photo), so the bars don't show there. Stills, the
+   cover cards), so the bars don't show there. Stills, the
    film header and the photo viewer always show the full frame, bars included.
    Each value is the share of the width or height to cut from that edge. */
 const MORPHO_BARS = {left: 0.126, right: 0.126};
@@ -385,7 +362,6 @@ const TRIM = {
   "dcf53389-edac-4355-8072-dc95cf7b9b7f/Morpho_Still7.jpg": MORPHO_BARS,
   "899b6209-f45d-4669-ab1d-8447458c8bfb/Morhpo_Still3.jpg": MORPHO_BARS
 };
-const CONTACT_IMG = "dcf53389-edac-4355-8072-dc95cf7b9b7f/Morpho_Still7.jpg";
 const ABOUT_IMG = "26ac530c-bc16-42e3-8d98-63e97094a65d/Screenshot+2026-05-04+at+3.01.46%E2%80%AFPM.png";
 
 const FILMS = [
@@ -433,8 +409,7 @@ const FILMS = [
     note: "Not yet available online",
     logline: "A man recounts his memories as a boy, trapped in his oppressive father’s arboretum.",
     synopsis: "",
-    poster: "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg",
-    posterPos: "15% 50%",                        // where the tall cover card sits within the picture (after the black bars are cut)
+    poster: "images/morpho-poster.webp",         // butterfly poster on the home card
     hero: "images/morpho-title-card.webp",       // big picture at the top of the film page
     fullPoster: "images/morpho-poster.webp",
     stillsRatio: "16 / 9",                       // full frame, black bars included: the aspect ratio matters in this film
@@ -574,15 +549,13 @@ watchTrims($("#filmGrid"));
 const COVERS = new Set(FILMS.flatMap(f => [f.poster, f.hero]));
 
 /* about + contact */
-[["#aboutImg", ABOUT_IMG], ["#contactImg", CONTACT_IMG]].forEach(([sel, path]) => {
+[["#aboutImg", ABOUT_IMG]].forEach(([sel, path]) => {
   const el = $(sel); if (TRIM[path]) el.dataset.trim = path;
   el.src = img(path, 1500); watchTrims(el.parentElement);
 });
-const row = (href, label, detail, ext) => `<a class="contact-row" href="${esc(href)}"${ext ? ' target="_blank" rel="noopener"' : ""}><b>${esc(label)}</b><span>${esc(detail)}</span><i>${arrow}</i></a>`;
-let contact = "";
-if (SITE.email) contact += row("mailto:" + SITE.email, "Email", SITE.email, false);
-contact += row(SITE.youtube, "YouTube", "@NoahGoldFilms", true);
-$("#contactLinks").innerHTML = contact;
+const link = (href, text, ext) => `<a href="${esc(href)}"${ext ? ' target="_blank" rel="noopener"' : ""}>${esc(text)}</a>`;
+$("#contactLinks").innerHTML = (SITE.email ? `Or email ${link("mailto:" + SITE.email, SITE.email)}` : "") +
+  (SITE.youtube ? `${SITE.email ? " &middot; " : ""}${link(SITE.youtube, "YouTube", true)}` : "");
 $("#yr").textContent = new Date().getFullYear();
 
 /* Contact form. Messages go to SITE.email through FormSubmit (formsubmit.co),
@@ -605,8 +578,8 @@ form.addEventListener("submit", async e => {
       method: "POST",
       headers: {"Content-Type": "application/json", "Accept": "application/json"},
       body: JSON.stringify({
-        name: data.name.trim(), email: data.email.trim(), reason: data.reason, message: data.message.trim(),
-        _subject: `Website: ${data.reason} from ${data.name.trim()}`,
+        name: data.name.trim(), email: data.email.trim(), message: data.message.trim(),
+        _subject: `Website message from ${data.name.trim()}`,
         _replyto: data.email.trim(), _template: "table", _captcha: "false", _honey: ""
       })
     });
@@ -615,7 +588,7 @@ form.addEventListener("submit", async e => {
     form.innerHTML = `<div class="form-done" tabindex="-1"><b>Thank you, ${esc(data.name.trim().split(/\s+/)[0])}.</b><p>Your message was sent. Noah will reply to ${esc(data.email.trim())}.</p></div>`;
     form.querySelector(".form-done").focus();
   }catch(err){
-    sendBtn.disabled = false; sendBtn.textContent = "Send message";
+    sendBtn.disabled = false; sendBtn.textContent = "Send";
     setStatus(`The message didn't go through. Please email ${mailLink()} directly.`, true);
   }
 });
