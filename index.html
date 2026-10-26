@@ -372,8 +372,10 @@ const IMAGE_BASE = "https://images.squarespace-cdn.com/content/v1/696945400b3786
 const RESIZE = true;
 const LOGO = "c244ae59-0fed-4fd5-8f07-3307406cd90b/Sailboat+under+a+crescent+moon.png";
 /* TRIM: images with black bars baked in (the Morpho stills are 4:3 frames inside
-   a 16:9 file). Each value is the share of the width or height to cut from that
-   edge; the rest of the picture is enlarged to fill the frame wherever it appears. */
+   a 16:9 file). Used only where a picture is cropped to fill a shape (the home
+   cover cards and the Contact photo), so the bars don't show there. Stills, the
+   film header and the photo viewer always show the full frame, bars included.
+   Each value is the share of the width or height to cut from that edge. */
 const MORPHO_BARS = {left: 0.126, right: 0.126};
 const TRIM = {
   "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg": MORPHO_BARS,
@@ -395,6 +397,7 @@ const FILMS = [
     synopsis: "Shashy, nine, and Al, seven, spend a golden afternoon running loose through Sydney’s streets, ferry wharves and beaches. Shashy dances in public squares, stages mock operas and takes every dare. Al follows a step behind, hoping some of that nerve will rub off. At Little Manly Jump, a rock ledge above the water, Shashy dives first and waits for her sister to follow.",
     poster: "66ceb88c-06cf-487d-a445-1aca536904cf/Little+Manly+Poster+High+Qual.png",
     fullPoster: "images/little-manly-poster.webp",   // titled poster shown on the film page (the home card keeps the photo)
+    stillsRatio: "2.41 / 1",                     // stills are shown whole, at the film's aspect ratio
     hero: "adf2ab65-d358-40c7-b9d8-74f06782837d/Little+Manly+Still.jpg",
     credits: [
       ["Written & directed by", "Noah Gold"],
@@ -430,7 +433,9 @@ const FILMS = [
     synopsis: "",
     poster: "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg",
     posterPos: "15% 50%",                        // where the tall cover card sits within the picture (after the black bars are cut)
-    hero: "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg",
+    hero: "images/morpho-title-card.webp",       // big picture at the top of the film page
+    fullPoster: "images/morpho-poster.webp",
+    stillsRatio: "16 / 9",                       // full frame, black bars included: the aspect ratio matters in this film
     credits: [
       ["Written & directed by", "Noah Gold"],
       ["Produced by", "Noah Gold"],
@@ -451,11 +456,10 @@ const FILMS = [
       "68a3e5fc-c11c-4dca-b7b2-89b7af6a8e74/Screenshot+2026-05-04+at+3.05.18%E2%80%AFPM.png",
       "5ee50602-5b47-4639-b852-5348c93bd12c/Screenshot+2026-05-04+at+3.00.31%E2%80%AFPM.png",
       "c0fd18ff-2482-4f9c-a275-788b2e150415/Screenshot+2026-05-04+at+3.01.58%E2%80%AFPM.png",
-      "36199f80-161c-4f69-9d1c-c8593f81b627/Screenshot+2026-05-04+at+3.01.46%E2%80%AFPM.png"
-    ],
-    extras: [
+      "36199f80-161c-4f69-9d1c-c8593f81b627/Screenshot+2026-05-04+at+3.01.46%E2%80%AFPM.png",
       "46c78208-a337-45c8-9d8a-53823d74037f/Screenshot+2026-05-04+at+3.33.23%E2%80%AFPM.png"
-    ]
+    ],
+    extras: []
   },
   {
     slug: "rain-fugue",
@@ -510,13 +514,6 @@ function watchTrims(root){
   });
 }
 if (!trimObserver) addEventListener("resize", () => document.querySelectorAll("img[data-trim]").forEach(layoutTrim));
-function clipStyle(path){
-  const t = TRIM[path]; if (!t) return "";
-  const pct = k => ((t[k] || 0) * 100).toFixed(2) + "%";
-  const dx = (((t.right || 0) - (t.left || 0)) * 50).toFixed(2), dy = (((t.bottom || 0) - (t.top || 0)) * 50).toFixed(2);
-  /* clip the strip, then shift so the remaining picture stays centred */
-  return `clip-path:inset(${pct("top")} ${pct("right")} ${pct("bottom")} ${pct("left")});transform:translate(${dx}%,${dy}%);`;
-}
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function ytId(u){
   if(!u) return "";
@@ -631,7 +628,7 @@ const navLinks = [...document.querySelectorAll(".nav a")];
 const film = $("#film"), scr = $("#screen");
 let current = -1, lastFocus = null;
 function playerMarkup(f){
-  const bg = `<img${trimAttr(f.hero)} src="${img(f.hero,2500)}" srcset="${srcset(f.hero)}" sizes="100vw" alt="">`;
+  const bg = `<img src="${img(f.hero,2500)}" srcset="${srcset(f.hero)}" sizes="100vw" alt="">`;
   if (ytId(f.video)) return bg + `<button class="play" type="button" id="playBtn" aria-label="Play ${esc(f.title)}"><span class="play-ring"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></span>Play</button>`;
   return bg + `<div class="screen-note">${esc(f.note || "Not yet available online")}</div>`;
 }
@@ -648,11 +645,11 @@ function startVideo(f){
   const src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&iv_load_policy=3&origin=${encodeURIComponent(location.origin)}`;
   scr.innerHTML = `<iframe src="${src}" title="${esc(f.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
 }
-function fillGallery(f, list, label, sec, grid, count, keepCovers){
+function fillGallery(f, list, label, sec, grid, count, keepCovers, ratio){
   const photos = list.filter(s => keepCovers || !COVERS.has(s)).map(s => ({src:s, film:f.title + " · " + label}));
   sec.hidden = !photos.length;
   count.textContent = photos.length ? String(photos.length) : "";
-  grid.innerHTML = photos.map((p,k) => `<button class="tile" type="button" data-k="${k}" aria-label="${esc(label)} photo ${k+1}"><img${trimAttr(p.src)} src="${img(p.src,1000)}" alt="${esc(f.title)}, ${esc(label.toLowerCase())} photo ${k+1}" loading="lazy"></button>`).join("");
+  grid.innerHTML = photos.map((p,k) => `<button class="tile" type="button" data-k="${k}" aria-label="${esc(label)} photo ${k+1}"${ratio ? ` style="aspect-ratio:${esc(ratio)}"` : ""}><img src="${img(p.src,1000)}" alt="${esc(f.title)}, ${esc(label.toLowerCase())} photo ${k+1}" loading="lazy"></button>`).join("");
   grid.querySelectorAll(".tile").forEach(b => b.addEventListener("click", () => openViewer(photos, +b.dataset.k)));
   watchTrims(grid);
 }
@@ -685,7 +682,7 @@ function openFilm(slug, autoplay){
     placeGraphic(img(f.ornament, 750), box, "", "");
   }
 
-  fillGallery(f, f.stills, "Still", $("#secStills"), $("#galStills"), $("#nStills"), true);
+  fillGallery(f, f.stills, "Still", $("#secStills"), $("#galStills"), $("#nStills"), true, f.stillsRatio);
   fillGallery(f, f.bts || [], "Behind the scenes", $("#secBts"), $("#galBts"), $("#nBts"));
   fillGallery(f, f.extras || [], "Extras", $("#secExtras"), $("#galExtras"), $("#nExtras"), true);
 
@@ -755,7 +752,6 @@ const viewer = $("#viewer"); let vset = [], vk = 0, vFocus = null;
 function showPhoto(){
   vk = (vk + vset.length) % vset.length;
   $("#viewerImg").src = img(vset[vk].src, 2500);
-  $("#viewerImg").style.cssText = clipStyle(vset[vk].src);
   $("#viewerImg").alt = vset[vk].film + ", photo " + (vk+1);
   $("#viewerCount").textContent = vset[vk].film + "  " + (vk+1) + " / " + vset.length;
 }
