@@ -98,8 +98,7 @@ section{scroll-margin-top:76px}
 
 /* contact */
 .contact{max-width:540px;margin:0 auto}
-.contact h1{margin-bottom:12px}
-.contact-intro{margin:0 0 44px;font-size:17px;color:var(--dim)}
+.contact h1{margin-bottom:44px}
 .form{display:grid;gap:30px}
 .field{display:grid;gap:6px}
 .field label{font-size:14px;color:var(--dim)}
@@ -253,7 +252,6 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
   <section class="sec wrap" aria-label="Contact">
     <div class="inner contact">
       <h1>Contact</h1>
-      <p class="contact-intro">Send Noah a note and he'll reply by email.</p>
       <form class="form" id="contactForm" novalidate>
         <div class="field"><label for="cfName">Name</label><input id="cfName" name="name" autocomplete="name" required maxlength="120"></div>
         <div class="field"><label for="cfEmail">Email</label><input id="cfEmail" name="email" type="email" autocomplete="email" required maxlength="200"></div>
@@ -373,7 +371,8 @@ const FILMS = [
     video: "https://www.youtube.com/watch?v=q4gVeKhBG_c",
     logline: "Two spirited sisters dance, steal, and jump across Sydney’s shores.",
     synopsis: "Shashy, nine, and Al, seven, spend a golden afternoon running loose through Sydney’s streets, ferry wharves and beaches. Shashy dances in public squares, stages mock operas and takes every dare. Al follows a step behind, hoping some of that nerve will rub off. At Little Manly Jump, a rock ledge above the water, Shashy dives first and waits for her sister to follow.",
-    poster: "images/little-manly-poster.webp",   // titled poster: home card and film page
+    poster: "66ceb88c-06cf-487d-a445-1aca536904cf/Little+Manly+Poster+High+Qual.png",   // still on the home card
+    fullPoster: "images/little-manly-poster.webp",   // titled poster on the film page
     stillsRatio: "2.41 / 1",                     // stills are shown whole, at the film's aspect ratio
     hero: "adf2ab65-d358-40c7-b9d8-74f06782837d/Little+Manly+Still.jpg",
     credits: [
@@ -408,7 +407,8 @@ const FILMS = [
     note: "Not yet available online",
     logline: "A man recounts his memories as a boy, trapped in his oppressive father’s arboretum.",
     synopsis: "",
-    poster: "images/morpho-poster.webp",         // butterfly poster on the home card
+    poster: "78337238-fd36-4b99-bd8d-03754a4334a4/Morpho_Still1.jpg",   // still on the home card
+    posterPos: "15% 50%",                        // where the tall cover card sits within the picture (after the black bars are cut)
     hero: "images/morpho-title-card.webp",       // big picture at the top of the film page
     fullPoster: "images/morpho-poster.webp",
     stillsRatio: "16 / 9",                       // full frame, black bars included: the aspect ratio matters in this film
