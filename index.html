@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.squarespace-cdn.com">
 <link rel="preconnect" href="https://www.youtube-nocookie.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Hanken+Grotesk:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&display=swap">
 <style>
 :root{
   --sky-1:#f7f2ea;
@@ -30,7 +30,7 @@
   --surface:#e8e1d7;
   --paper:#fbf8f3;
   --gradient:linear-gradient(172deg,var(--sky-1) 0%,var(--sky-2) 52%,var(--sky-3) 100%);
-  --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --display:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
   --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
   --gut:max(20px, env(safe-area-inset-left, 0px));
   --gut-r:max(20px, env(safe-area-inset-right, 0px));
@@ -60,7 +60,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;paddin
 .brand-mark{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:50%;overflow:hidden}
 .brand-mark.on-ink{background:var(--ink)}
 .brand-mark img,.brand-mark svg{width:100%;height:100%;object-fit:contain}
-.brand b{font:400 20px/1 var(--serif)}
+.brand b{font:500 18px/1 var(--display);letter-spacing:-.01em}
 .nav{display:flex;gap:clamp(20px,3vw,36px)}
 .nav a{text-decoration:none;font-size:15px;color:var(--dim);transition:color .25s}
 .nav a:hover,.nav a.on{color:var(--ink)}
@@ -75,7 +75,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;paddin
 /* sections */
 section{scroll-margin-top:76px}
 .sec{padding-block:clamp(64px,9vw,120px) 0}
-.sec h2{font:400 clamp(28px,3.4vw,42px)/1 var(--serif);margin:0 0 clamp(24px,3vw,40px)}
+.sec h2{font:300 clamp(28px,3.4vw,42px)/1.05 var(--display);letter-spacing:-.02em;margin:0 0 clamp(24px,3vw,40px)}
 
 /* film cards */
 .films{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2.2vw,32px)}
@@ -85,7 +85,7 @@ section{scroll-margin-top:76px}
 .card:hover .card-frame img,.card:focus-visible .card-frame img{transform:scale(calc(var(--z,1) * 1.04))}
 .card-frame::after{content:"";position:absolute;inset:auto 0 0 0;height:38%;background:linear-gradient(180deg,rgba(20,18,16,0),rgba(20,18,16,.6));pointer-events:none}
 .card-cap{position:absolute;left:0;right:0;bottom:0;z-index:1;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;padding:clamp(16px,2vw,24px);color:var(--paper)}
-.card-cap h3{font:italic 500 clamp(26px,2.4vw,36px)/1.05 "Cormorant Garamond",Garamond,Georgia,serif;letter-spacing:.005em;margin:0}
+.card-cap h3{font:400 clamp(22px,2vw,28px)/1.1 var(--display);letter-spacing:-.015em;margin:0}
 .card-cap span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
 
 
@@ -95,6 +95,8 @@ section{scroll-margin-top:76px}
 .about-img img{width:100%;height:100%;object-fit:cover}
 .about-text h2{margin-bottom:20px}
 .about-text p{max-width:58ch;margin:0 0 16px;font-size:17px}
+.about-text h1{margin-bottom:12px}
+.about-text .roles{margin:0 0 32px;font-size:15px;color:var(--dim);letter-spacing:.01em}
 
 /* contact */
 .contact{max-width:540px;margin:0 auto}
@@ -113,7 +115,7 @@ section{scroll-margin-top:76px}
 .form-status{font-size:15px;color:var(--dim);margin:0}
 .form-status.err{color:#a3472f}
 .form-status a{color:inherit}
-.form-done b{display:block;font:400 26px/1.2 var(--serif);margin-bottom:6px}
+.form-done b{display:block;font:300 26px/1.2 var(--display);letter-spacing:-.01em;margin-bottom:6px}
 .form-done p{margin:0;color:var(--dim)}
 .form-done:focus{outline:none}
 .contact-alt{margin:56px 0 0;padding-top:22px;border-top:1px solid var(--line);font-size:15px;color:var(--dim)}
@@ -122,7 +124,7 @@ section{scroll-margin-top:76px}
 .page{padding-top:calc(clamp(110px,11vw,160px) + env(safe-area-inset-top, 0px))}
 .page .sec{padding-top:0}
 #view-home{padding-top:calc(96px + env(safe-area-inset-top, 0px))}
-.page h1{font:400 clamp(36px,5vw,64px)/1 var(--serif);margin:0 0 24px;letter-spacing:-.01em}
+.page h1{font:300 clamp(36px,5vw,64px)/1.05 var(--display);margin:0 0 24px;letter-spacing:-.03em}
 footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-area-inset-bottom, 0px));border-top:1px solid var(--line);color:var(--dim);font-size:14px}
 
 /* film page */
@@ -146,7 +148,7 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
 .screen-note{position:absolute;left:0;right:0;bottom:0;padding:20px 24px;background:linear-gradient(0deg,rgba(20,18,16,.7),transparent);color:var(--paper);font-size:15px}
 
 .film-body{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(32px,6vw,90px);padding-block:clamp(36px,5vw,64px)}
-.film-body h1{font:400 clamp(40px,6vw,80px)/1 var(--serif);margin:0 0 18px;letter-spacing:-.01em}
+.film-body h1{font:300 clamp(40px,6vw,80px)/1.02 var(--display);margin:0 0 18px;letter-spacing:-.035em}
 .film-body .logline{font-size:clamp(18px,1.8vw,22px);line-height:1.5;margin:0 0 16px;max-width:40ch}
 .film-body .syn{color:var(--dim);max-width:60ch;margin:0}
 .poster{width:100%;max-width:300px;border-radius:4px;margin-bottom:24px}
@@ -167,13 +169,13 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
 .gallery-sec{padding-top:clamp(36px,5vw,64px)}
 .gallery-sec + .gallery-sec{margin-top:clamp(36px,5vw,64px);border-top:1px solid var(--line)}
 .gallery-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:20px}
-.film-h2{font:400 clamp(26px,3vw,36px)/1 var(--serif);margin:0}
+.film-h2{font:300 clamp(26px,3vw,36px)/1.05 var(--display);letter-spacing:-.02em;margin:0}
 .gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .tile{position:relative;display:block;width:100%;aspect-ratio:3/2;overflow:hidden;border-radius:4px;background:var(--surface)}
 .tile img{width:100%;height:100%;object-fit:cover;transform:scale(var(--z,1));transition:transform 1s var(--ease)}
 .tile:hover img,.tile:focus-visible img{transform:scale(calc(var(--z,1) * 1.04))}
 .next{display:flex;justify-content:space-between;align-items:baseline;gap:16px;width:100%;text-align:left;padding-block:36px calc(36px + env(safe-area-inset-bottom, 0px));margin-top:clamp(36px,5vw,64px);border-top:1px solid var(--line)}
-.next b{font:400 clamp(26px,3vw,38px)/1.1 var(--serif);transition:color .25s}
+.next b{font:300 clamp(26px,3vw,38px)/1.1 var(--display);letter-spacing:-.02em;transition:color .25s}
 .next:hover b{color:var(--dim)}
 
 /* photo viewer */
@@ -239,9 +241,9 @@ footer{margin-top:clamp(56px,7vw,96px);padding-block:24px calc(24px + env(safe-a
       <div class="about-img"><img id="aboutImg" alt="Still from Morpho" loading="lazy"></div>
       <div class="about-text">
         <h1>Noah Gold</h1>
+        <p class="roles">Writer · Director · Producer · Editor</p>
         <p>Noah Gold is a filmmaker, writer, and director whose work bridges the philosophical and the emotional, marked by an exploration of existential themes through emotional surrealism and dreamlike natural landscapes.</p>
         <p>A self-taught filmmaker, he studied philosophy and physics at the University of Pennsylvania.</p>
-        <p class="small">Writer / Director / Producer / Editor</p>
       </div>
     </div>
   </section>
@@ -370,7 +372,7 @@ const FILMS = [
     kind: "Short film",
     video: "https://www.youtube.com/watch?v=q4gVeKhBG_c",
     logline: "Two spirited sisters dance, steal, and jump across Sydney’s shores.",
-    synopsis: "Shashy, nine, and Al, seven, spend a golden afternoon running loose through Sydney’s streets, ferry wharves and beaches. Shashy dances in public squares, stages mock operas and takes every dare. Al follows a step behind, hoping some of that nerve will rub off. At Little Manly Jump, a rock ledge above the water, Shashy dives first and waits for her sister to follow.",
+    synopsis: "Shashy (9) and Al (7) tumble through Sydney’s streets, ferry docks, and beaches in a world stitched together by laughter, mischief, and bravery. Little Manly is the story of a childhood adventure, mortality, and the push and pull of our differences.",
     poster: "images/little-manly-poster.webp",   // titled poster: home card and film page
     stillsRatio: "2.41 / 1",                     // stills are shown whole, at the film's aspect ratio
     hero: "adf2ab65-d358-40c7-b9d8-74f06782837d/Little+Manly+Still.jpg",
@@ -405,7 +407,7 @@ const FILMS = [
     video: "",                                   // private for now; paste a YouTube link here when it goes public
     note: "Not yet available online",
     logline: "A man recounts his memories as a boy, trapped in his oppressive father’s arboretum.",
-    synopsis: "",
+    synopsis: "He spends his time befriending the plants and animals that inhabit the elaborate jungle. Believing the boy to be weak, his father introduces challenges to toughen him. What happens next changes him irrevocably.",
     poster: "images/morpho-poster.webp",         // butterfly poster on the home card
     hero: "images/morpho-title-card.webp",       // big picture at the top of the film page
     fullPoster: "images/morpho-poster.webp",
